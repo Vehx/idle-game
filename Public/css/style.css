@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(116, 116, 116);
+}
+
+.title__box {
+    border-radius: 20px 20px 0 0;
+}
+
+.farms__box {
+    border-radius: 0 0 20px 20px;
+    padding-bottom: 15px;
+}
+
+.farms__buy-btn {
+    min-width: 80px;
+    min-height: 20px;
+    border-radius: 20px;
+    background-color: greenyellow;
+    border: 0;
+    font-size: 14px;
+}
+
+.active-buy-btn:hover {
+    background-color: rgb(123, 184, 32);
+}
+
+.disabled-buy-btn {
+    background-color: grey;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    min-height: 50px;
+    background-color: black;
+    color: white;
+}
