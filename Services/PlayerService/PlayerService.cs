@@ -22,7 +22,9 @@ namespace Game.Services
         public async Task<ServiceResponse<GetPlayerDto>> AddPlayer(AddPlayerDto newPlayer)
         {
             ServiceResponse<GetPlayerDto> serviceResponse = new ServiceResponse<GetPlayerDto>();
-            serviceResponse.Data = _mapper.Map<GetPlayerDto>(newPlayer);
+            Player player = _mapper.Map<Player>(newPlayer);
+            player.Id = players.Max(c => c.Id) + 1;
+            serviceResponse.Data = _mapper.Map<GetPlayerDto>(player);
             return serviceResponse;
         }
 
