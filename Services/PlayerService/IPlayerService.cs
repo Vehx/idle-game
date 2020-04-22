@@ -1,11 +1,12 @@
+using System.Threading.Tasks;
 using Game.Models;
 
 namespace Game.Services
 {
     public interface IPlayerService
     {
-        Player GetPlayerById(int id);
-        Player AddPlayer(Player newPlayer);
-        Player UpdatePlayer(Player player);
+        Task<Player> GetPlayerById(int id);
+        Task<Player> AddPlayer(Player newPlayer);
+        Task<Player> UpdatePlayer(Player player);
     }
 }

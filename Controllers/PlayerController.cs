@@ -20,15 +20,15 @@ namespace Game.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetSingle(int id)
+        public async Task<IActionResult> GetSingle(int id)
         {
-            return Ok(_playerService.GetPlayerById(id));
+            return Ok(await _playerService.GetPlayerById(id));
         }
 
         [HttpPost]
-        public IActionResult AddPlayer(Player newPlayer)
+        public async Task<IActionResult> AddPlayer(Player newPlayer)
         {
-            return Ok(_playerService.AddPlayer(newPlayer));
+            return Ok(await _playerService.AddPlayer(newPlayer));
         }
         // [HttpGet("GetAll")]
         // public async Task<IActionResult> Get()

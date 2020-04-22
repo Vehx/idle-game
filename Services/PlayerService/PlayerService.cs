@@ -1,6 +1,7 @@
 using Game.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Game.Services
 {
@@ -10,18 +11,18 @@ namespace Game.Services
             new Player(),
             new Player { Id = 1, Name = "Cookie" }
         };
-        public Player AddPlayer(Player newPlayer)
+        public async Task<Player> AddPlayer(Player newPlayer)
         {
             players.Add(newPlayer);
             return newPlayer;
         }
 
-        public Player GetPlayerById(int id)
+        public async Task<Player> GetPlayerById(int id)
         {
             return players.FirstOrDefault(p => p.Id == id);
         }
 
-        public Player UpdatePlayer(Player player)
+        public async Task<Player> UpdatePlayer(Player player)
         {
             throw new System.NotImplementedException();
         }
