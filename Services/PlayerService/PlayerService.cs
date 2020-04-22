@@ -1,3 +1,4 @@
+using AutoMapper;
 using Game.Dtos.Player;
 using Game.Models;
 using System.Collections.Generic;
@@ -12,17 +13,23 @@ namespace Game.Services
             new Player(),
             new Player { Id = 1, Name = "Cookie" }
         };
+        private readonly IMapper _mapper;
+
+        public PlayerService(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
         public async Task<ServiceResponse<GetPlayerDto>> AddPlayer(AddPlayerDto newPlayer)
         {
-            ServiceResponse<Player> serviceResponse = new ServiceResponse<Player>();
-            serviceResponse.Data = newPlayer;
+            ServiceResponse<GetPlayerDto> serviceResponse = new ServiceResponse<GetPlayerDto>();
+            serviceResponse.Data = _mapper.Map<GetPlayerDto>(newPlayer);
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetPlayerDto>> GetPlayerById(int id)
         {
             ServiceResponse<GetPlayerDto> serviceResponse = new ServiceResponse<GetPlayerDto>();
-            serviceResponse.Data = players.FirstOrDefault(p => p.Id == id);
+            serviceResponse.Data = _mapper.Map<GetPlayerDto>(players.FirstOrDefault(p => p.Id == id));
             return serviceResponse;
         }
 
