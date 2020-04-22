@@ -1,5 +1,5 @@
 
-namespace Game.Services
+namespace Game.Models
 {
     public class ServiceResponse<T>
     {

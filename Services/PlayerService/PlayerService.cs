@@ -11,18 +11,21 @@ namespace Game.Services
             new Player(),
             new Player { Id = 1, Name = "Cookie" }
         };
-        public async Task<Player> AddPlayer(Player newPlayer)
+        public async Task<ServiceResponse<Player>> AddPlayer(Player newPlayer)
         {
-            players.Add(newPlayer);
-            return newPlayer;
+            ServiceResponse<Player> serviceResponse = new ServiceResponse<Player>();
+            serviceResponse.Data = newPlayer;
+            return serviceResponse;
         }
 
-        public async Task<Player> GetPlayerById(int id)
+        public async Task<ServiceResponse<Player>> GetPlayerById(int id)
         {
-            return players.FirstOrDefault(p => p.Id == id);
+            ServiceResponse<Player> serviceResponse = new ServiceResponse<Player>();
+            serviceResponse.Data = players.FirstOrDefault(p => p.Id == id);
+            return serviceResponse;
         }
 
-        public async Task<Player> UpdatePlayer(Player player)
+        public async Task<ServiceResponse<Player>> UpdatePlayer(Player player)
         {
             throw new System.NotImplementedException();
         }

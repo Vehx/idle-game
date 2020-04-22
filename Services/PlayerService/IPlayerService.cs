@@ -5,8 +5,8 @@ namespace Game.Services
 {
     public interface IPlayerService
     {
-        Task<Player> GetPlayerById(int id);
-        Task<Player> AddPlayer(Player newPlayer);
-        Task<Player> UpdatePlayer(Player player);
+        Task<ServiceResponse<Player>> GetPlayerById(int id);
+        Task<ServiceResponse<Player>> AddPlayer(Player newPlayer);
+        Task<ServiceResponse<Player>> UpdatePlayer(Player player);
     }
 }
