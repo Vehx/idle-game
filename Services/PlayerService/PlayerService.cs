@@ -1,3 +1,4 @@
+using Game.Dtos.Player;
 using Game.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +12,21 @@ namespace Game.Services
             new Player(),
             new Player { Id = 1, Name = "Cookie" }
         };
-        public async Task<ServiceResponse<Player>> AddPlayer(Player newPlayer)
+        public async Task<ServiceResponse<GetPlayerDto>> AddPlayer(AddPlayerDto newPlayer)
         {
             ServiceResponse<Player> serviceResponse = new ServiceResponse<Player>();
             serviceResponse.Data = newPlayer;
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Player>> GetPlayerById(int id)
+        public async Task<ServiceResponse<GetPlayerDto>> GetPlayerById(int id)
         {
-            ServiceResponse<Player> serviceResponse = new ServiceResponse<Player>();
+            ServiceResponse<GetPlayerDto> serviceResponse = new ServiceResponse<GetPlayerDto>();
             serviceResponse.Data = players.FirstOrDefault(p => p.Id == id);
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Player>> UpdatePlayer(Player player)
+        public async Task<ServiceResponse<GetPlayerDto>> UpdatePlayer(UpdatePlayerDto player)
         {
             throw new System.NotImplementedException();
         }

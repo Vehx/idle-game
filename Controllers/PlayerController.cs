@@ -5,6 +5,7 @@ using Game.Services;
 // using Game.Dtos.Player;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Dtos.Player;
 
 namespace Game.Controllers
 {
@@ -26,7 +27,7 @@ namespace Game.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPlayer(Player newPlayer)
+        public async Task<IActionResult> AddPlayer(AddPlayerDto newPlayer)
         {
             return Ok(await _playerService.AddPlayer(newPlayer));
         }
