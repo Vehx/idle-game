@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:25177",
-      "sslPort": 44315
+      "applicationUrl": "http://localhost:24690",
+      "sslPort": 44385
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "dotnet_rpg": {
+    "idle_game": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",

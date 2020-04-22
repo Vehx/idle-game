@@ -1,5 +1,5 @@
 
-namespace dotnet_rpg.Services
+namespace Game.Services
 {
     public class ServiceResponse<T>
     {

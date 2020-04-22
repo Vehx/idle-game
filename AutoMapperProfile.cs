@@ -1,15 +1,15 @@
-using AutoMapper;
-using dotnet_rpg.Dtos.Character;
-using dotnet_rpg.Models;
+// using AutoMapper;
+// using Game.Dtos.Game;
+// using Game.Models;
 
-namespace dotnet_rpg
-{
-    public class AutoMapperProfile : Profile
-    {
-        public AutoMapperProfile()
-        {
-            CreateMap<Character, GetCharacterDto>();            
-            CreateMap<AddCharacterDto, Character>();
-        }
-    }
-}
+// namespace Game
+// {
+//     public class AutoMapperProfile : Profile
+//     {
+//         public AutoMapperProfile()
+//         {
+//             CreateMap<Game, GetGameDto>();
+//             CreateMap<AddGameDto, Game>();
+//         }
+//     }
+// }

@@ -1,5 +1,5 @@
 
-namespace dotnet_rpg.Models
+namespace Game.Models
 {
     public class Character
     {
