@@ -6,41 +6,61 @@ const farmsOwned = document.querySelector(".farms__owned-value");
 const farmsCost = document.querySelector(".farms__cost-value");
 const farmBuyBtn = document.querySelector(".farms__buy-btn");
 
-let moneyRealValue = 0;
-let incomeRealValue = 0;
-let farmsRealValue = 0;
-let farmRealCost = 100;
-const farmIncomeIncrease = 1;
-const gameDifficultyMultiplier = 1.1;
-const startMoney = 100;
+const gameUrl = "http://localhost:5000/player/0";
+
+let moneyValue = 0;
+let incomeValue = 0;
+let farmsValue = 0;
+let farmCost = 100;
+let farmIncomeIncrease = 1;
+let farmCostIncreaseMultiplier = 1.0;
+let gameDifficultyMultiplier = 1.0;
 
 const gameLoop = () => {
-    // console.log("Real money: " + moneyRealValue);
-    // console.log("Farm current cost: " + farmRealCost);
-    updateMoney((moneyRealValue += incomeRealValue));
-    if (moneyRealValue >= farmRealCost) {
-        setFarmBuyBtnActive();
-    } else {
-        setFarmBuyBtnDisabled();
-    }
-    setTimeout(() => {
-        gameLoop();
+    setInterval(() => {
+        console.log("Current money: " + moneyValue);
+        console.log("Current income: " + incomeValue);
+        console.log("Farms currently owned: " + farmsValue);
+        console.log("Farm current cost: " + farmCost);
+        updateMoney((moneyValue += incomeValue));
+        if (moneyValue >= farmCost) {
+            setFarmBuyBtnActive();
+        } else {
+            setFarmBuyBtnDisabled();
+        }
+        updateGame();
     }, 1000);
+
+    // setTimeout(() => {
+    //     gameLoop();
+    // }, 1000);
+};
+
+const updateGame = () => {
+    fetch(gameUrl)
+        .then((r) => r.json())
+        .then((r) => {
+            console.log(r);
+            moneyValue = r.data.money;
+            incomeValue = r.data.income;
+            farmCost = r.data.buildings[0].cost;
+            farmIncomeIncrease = r.data.buildings[0].incomeIncrease;
+        });
 };
 
 // functions to update value used in js and value shown in dom
-const updateMoney = value => {
-    moneyRealValue = value;
+const updateMoney = (value) => {
+    moneyValue = value;
     money.textContent = value;
 };
 
-const updateIncome = value => {
-    incomeRealValue = value;
+const updateIncome = (value) => {
+    incomeValue = value;
     income.textContent = value;
 };
 
 const updateFarms = (farmCount, farmCost) => {
-    farmsRealValue = farmCount;
+    farmsValue = farmCount;
     farmsOwned.textContent = farmCount;
     farmsCost.textContent = farmCost;
 };
@@ -63,24 +83,24 @@ const setFarmBuyBtnDisabled = () => {
 
 const buyFarm = () => {
     setFarmBuyBtnDisabled();
-    updateMoney(Math.round((moneyRealValue -= farmRealCost)));
-    updateIncome(Math.round((incomeRealValue += farmIncomeIncrease)));
-    farmRealCost = Math.round(farmRealCost * gameDifficultyMultiplier);
-    updateFarms((farmsRealValue += 1), farmRealCost);
+    updateMoney(Math.round((moneyValue -= farmCost)));
+    updateIncome(Math.round((incomeValue += farmIncomeIncrease)));
+    farmCost = Math.round(farmCost * gameDifficultyMultiplier);
+    updateFarms((farmsValue += 1), farmCost);
 };
 
 const gameStart = () => {
-    if (isFirstTime) {
-        updateMoney(startMoney);
-    }
+    // if (isFirstTime) {
+    //     updateMoney(startMoney);
+    // }
 
-    // console.log(moneyRealValue);
-    // console.log(incomeRealValue);
-    // console.log(farmsRealValue);
+    // console.log(moneyValue);
+    // console.log(incomeValue);
+    // console.log(farmsValue);
 
     gameLoop();
 };
 
-const isFirstTime = true;
+// const isFirstTime = true;
 
 gameStart();

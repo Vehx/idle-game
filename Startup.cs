@@ -24,9 +24,22 @@ namespace idle_game
 
         public IConfiguration Configuration { get; }
 
+        readonly string CorsOrigins = "_corsOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CorsOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4545",
+                                            "localhost:4545",
+                                            "http://localhost:5000/player/*");
+                    });
+            });
+
             services.AddControllers();
 
             services.AddAutoMapper(typeof(Startup));
@@ -45,6 +58,8 @@ namespace idle_game
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(CorsOrigins);
 
             app.UseAuthorization();
 
