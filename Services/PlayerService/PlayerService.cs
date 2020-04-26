@@ -56,5 +56,25 @@ namespace Game.Services
             }
             return serviceResponse;
         }
+
+
+        public async Task<ServiceResponse<GetPlayerDto>> DeletePlayer(int id)
+        {
+            ServiceResponse<GetPlayerDto> serviceResponse = new ServiceResponse<GetPlayerDto>();
+            try
+            {
+                Player player = players.First(c => c.Id == id);
+                serviceResponse.Data = _mapper.Map<GetPlayerDto>(player);
+                players.Remove(player);
+
+                serviceResponse.Message = "Player deleted sucessfully.";
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
     }
 }
