@@ -8,6 +8,6 @@ namespace Game.Services
     {
         Task<ServiceResponse<GetPlayerDto>> GetPlayerById(int id);
         Task<ServiceResponse<GetPlayerDto>> AddPlayer(AddPlayerDto newPlayer);
-        Task<ServiceResponse<GetPlayerDto>> UpdatePlayer(UpdatePlayerDto player);
+        Task<ServiceResponse<GetPlayerDto>> UpdatePlayer(UpdatePlayerDto updatedPlayer);
     }
 }

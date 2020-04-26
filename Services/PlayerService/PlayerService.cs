@@ -1,6 +1,7 @@
 using AutoMapper;
 using Game.Dtos.Player;
 using Game.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,9 +36,25 @@ namespace Game.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetPlayerDto>> UpdatePlayer(UpdatePlayerDto player)
+        public async Task<ServiceResponse<GetPlayerDto>> UpdatePlayer(UpdatePlayerDto updatedPlayer)
         {
-            throw new System.NotImplementedException();
+            ServiceResponse<GetPlayerDto> serviceResponse = new ServiceResponse<GetPlayerDto>();
+            try
+            {
+                Player player = players.FirstOrDefault(p => p.Id == updatedPlayer.Id);
+                player.Name = updatedPlayer.Name;
+                player.Money = updatedPlayer.Money;
+                player.Income = updatedPlayer.Income;
+                player.Buildings = updatedPlayer.Buildings;
+
+                serviceResponse.Data = _mapper.Map<GetPlayerDto>(player);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
         }
     }
 }
