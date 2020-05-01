@@ -12,6 +12,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.20" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.19" />
   </ItemGroup>
 
 

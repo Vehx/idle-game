@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Game.Data;
 using Game.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,8 @@ namespace idle_game
                                             "http://localhost:5000/player/*");
                     });
             });
+
+            services.AddDbContext<DataContext>();
 
             services.AddControllers();
 
