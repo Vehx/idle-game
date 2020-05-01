@@ -41,15 +41,15 @@ namespace Game.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            ServiceResponse<GetPlayerDto> response = await _playerService.DeletePlayer(id);
-            if (response.Data == null)
-            {
-                return NotFound(response);
-            }
-            return Ok(response);
-        }
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> Delete(int id)
+        // {
+        //     ServiceResponse<GetPlayerDto> response = await _playerService.DeletePlayer(id);
+        //     if (response.Data == null)
+        //     {
+        //         return NotFound(response);
+        //     }
+        //     return Ok(response);
+        // }
     }
 }
