@@ -51,10 +51,39 @@ namespace Game.Services
             try
             {
                 Player player = await _context.Players.FirstOrDefaultAsync(p => p.Id == updatedPlayer.Id);
-                player.Name = updatedPlayer.Name;
-                player.Money = updatedPlayer.Money;
-                player.Income = updatedPlayer.Income;
-                player.Buildings = updatedPlayer.Buildings;
+                // player.Name = updatedPlayer.Name;
+                // player.Money = updatedPlayer.Money;
+                // player.Income = updatedPlayer.Income;
+                // player.Buildings = updatedPlayer.Buildings;
+
+                // logic testing groud
+                // something get player from database including time stamp of last updated
+                
+                // check that player can afford new building
+                if (player.Money >= player.Buildings[updatedPlayer.BuildingId].Cost) {
+
+                    var Building = player.Buildings[updatedPlayer.BuildingId];
+
+                    // deduct cost of building from money
+                    player.Money -= Building.Cost;
+
+                    // calculate cost for next building
+                    Building.Cost = (int)(Building.Cost * Building.CostIncrease);
+
+                    // sets owned to +1 to reflect purchase
+                    Building.Owned += 1;
+
+                    // adds buildings income to players income to reflect purchase
+                    player.Income += Building.IncomeIncrease;
+
+                    // finally sets players building to updated building
+                    player.Buildings[updatedPlayer.BuildingId] = Building;
+                }
+                // player.Buildings = player.Buildings;
+                // player.Buildings.Add(player.Buildings[player.Buildings.IndexOf(updatedPlayer.Buildings[0])]);
+                // i think this works as intendend, but not 100%
+                // player.Income = player.Buildings[updatedPlayer.Buildings[0].Id].Id;
+
 
                 _context.Players.Update(player);
                 await _context.SaveChangesAsync();
