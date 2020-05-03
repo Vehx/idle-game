@@ -4,11 +4,13 @@ using Game.Models;
 using Game.Services;
 using System.Collections.Generic;
 using Game.Dtos.Player;
+using Microsoft.AspNetCore.Cors;
 
 namespace Game.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableCors("_corsOrigins")]
     public class PlayerController : ControllerBase
     {
         private readonly IPlayerService _playerService;
