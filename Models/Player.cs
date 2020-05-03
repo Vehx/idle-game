@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Game.Models
@@ -10,6 +11,7 @@ namespace Game.Models
         public int Money { get; set;} = 100;
         public int Income { get; set;} = 0;
         public List<Building> Buildings { get; set;} = new List<Building> { new Building() };
+        public DateTime LastUpdate { get; set;} = DateTime.Now;
     }
 
 }
