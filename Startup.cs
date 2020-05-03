@@ -35,8 +35,7 @@ namespace idle_game
                 options.AddPolicy(name: CorsOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4545",
-                                            "localhost:4545",
+                        builder.WithOrigins("http://localhost:3000/",
                                             "http://localhost:5000/player/*");
                     });
             });
