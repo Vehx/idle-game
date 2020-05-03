@@ -29,8 +29,14 @@ namespace Game.Services
         {
             ServiceResponse<GetPlayerDto> serviceResponse = new ServiceResponse<GetPlayerDto>();
 
-            Player dbPlayer = await _context.Players.FirstOrDefaultAsync(p => p.Id == id);
-            serviceResponse.Data = _mapper.Map<GetPlayerDto>(dbPlayer);
+            Player player = await _context.Players.FirstOrDefaultAsync(p => p.Id == id);
+
+            // TODO add logic to update money from current income by checking last updated field against current time
+
+            TimeSpan timeSinceLastUpdate = DateTime.Now - player.LastUpdate;
+            player.Money = (int)(player.Income * timeSinceLastUpdate.TotalSeconds);
+
+            serviceResponse.Data = _mapper.Map<GetPlayerDto>(player);
             return serviceResponse;
         }
 
@@ -51,16 +57,13 @@ namespace Game.Services
             try
             {
                 Player player = await _context.Players.FirstOrDefaultAsync(p => p.Id == updatedPlayer.Id);
-                // player.Name = updatedPlayer.Name;
-                // player.Money = updatedPlayer.Money;
-                // player.Income = updatedPlayer.Income;
-                // player.Buildings = updatedPlayer.Buildings;
-
-                // logic testing groud
-                // something get player from database including time stamp of last updated
                 
                 // check that player can afford new building
                 if (player.Money >= player.Buildings[updatedPlayer.BuildingId].Cost) {
+
+                    // makes sure player doesn't get income from time spent with 0 income
+                    if (player.Income == 0)
+                        player.LastUpdate = DateTime.Now;
 
                     var Building = player.Buildings[updatedPlayer.BuildingId];
 
@@ -76,17 +79,11 @@ namespace Game.Services
                     // adds buildings income to players income to reflect purchase
                     player.Income += Building.IncomeIncrease;
 
-                    // finally sets players building to updated building
+                    // finally sets players building to updated building and save it to database
                     player.Buildings[updatedPlayer.BuildingId] = Building;
+                    _context.Players.Update(player);
+                    await _context.SaveChangesAsync();
                 }
-                // player.Buildings = player.Buildings;
-                // player.Buildings.Add(player.Buildings[player.Buildings.IndexOf(updatedPlayer.Buildings[0])]);
-                // i think this works as intendend, but not 100%
-                // player.Income = player.Buildings[updatedPlayer.Buildings[0].Id].Id;
-
-
-                _context.Players.Update(player);
-                await _context.SaveChangesAsync();
 
                 serviceResponse.Data = _mapper.Map<GetPlayerDto>(player);
             }
