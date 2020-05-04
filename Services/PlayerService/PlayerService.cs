@@ -60,31 +60,58 @@ namespace Game.Services
             {
                 Player player = await _context.Players.FirstOrDefaultAsync(p => p.Id == updatedPlayer.Id);
                 
-                // check that player can afford new building
-                if (player.Money >= player.Buildings[updatedPlayer.BuildingId].Cost) {
+                // dirty fix, scary stuff ahead this is your one and only warning :)
+                if (updatedPlayer.BuildingId = 0) {
+                    if (player.Money >= player.BuildingOneCost) {
 
                     // makes sure player doesn't get income from time spent with 0 income
                     if (player.Income == 0)
                         player.LastUpdate = DateTime.Now;
 
-                    var Building = player.Buildings[updatedPlayer.BuildingId];
+                    // var Building = player.Buildings[updatedPlayer.BuildingId];
 
                     // deduct cost of building from money
-                    player.Money -= Building.Cost;
+                    player.Money -= player.BuildingOneCost;
 
                     // calculate cost for next building
-                    Building.Cost = (int)(Building.Cost * Building.CostIncrease);
+                    player.BuildingOneCost = (int)(player.BuildingOneCost * player.BuildingOneCostIncrease);
 
                     // sets owned to +1 to reflect purchase
-                    Building.Owned += 1;
+                    player.BuildingOneOwned += 1;
 
                     // adds buildings income to players income to reflect purchase
-                    player.Income += Building.IncomeIncrease;
+                    player.Income += player.BuildingOneIncomeIncrease;
 
-                    // finally sets players building to updated building and save it to database
-                    player.Buildings[updatedPlayer.BuildingId] = Building;
+                    // finally sets player save it to database
                     _context.Players.Update(player);
                     await _context.SaveChangesAsync();
+                }
+                }
+                if (updatedPlayer.BuildingId = 1) {
+                    if (player.Money >= player.BuildingOneCost) {
+
+                        // makes sure player doesn't get income from time spent with 0 income
+                        if (player.Income == 0)
+                            player.LastUpdate = DateTime.Now;
+
+                        // var Building = player.Buildings[updatedPlayer.BuildingId];
+
+                        // deduct cost of building from money
+                        player.Money -= player.BuildingOneCost;
+
+                        // calculate cost for next building
+                        player.BuildingOneCost = (int)(player.BuildingOneCost * player.BuildingOneCostIncrease);
+
+                        // sets owned to +1 to reflect purchase
+                        player.BuildingOneOwned += 1;
+
+                        // adds buildings income to players income to reflect purchase
+                        player.Income += player.BuildingOneIncomeIncrease;
+
+                        // finally sets player save it to database
+                        _context.Players.Update(player);
+                        await _context.SaveChangesAsync();
+                    }
                 }
 
                 serviceResponse.Data = _mapper.Map<GetPlayerDto>(player);
