@@ -8,6 +8,7 @@ namespace Game.Dtos.Player
         public int Id { get; set;}
         public string Name { get; set;} = "Asha";
         public int Money { get; set;} = 100;
+        public double MoneyDouble { get; set;}
         public int Income { get; set;} = 0;
         public string BuildingOneName {get; set;}
         public int BuildingOneOwned {get; set;}

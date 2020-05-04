@@ -9,6 +9,7 @@ namespace Game.Models
         public string Name { get; set;} = "Asha";
         public string Password { get; set;} = "aaaa";
         public int Money { get; set;} = 100;
+        public double MoneyDouble { get; set;}
         public int Income { get; set;} = 0;
         public DateTime LastUpdate { get; set;} = DateTime.Now;
 

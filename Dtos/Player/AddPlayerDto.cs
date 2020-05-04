@@ -13,6 +13,17 @@ namespace Game.Dtos.Player
         public int Income { get; set;} = 0;
         // public List<Building> Buildings { get; set;} = new List<Building> { new Building() };
         public DateTime LastUpdate { get; set;} = DateTime.Now;
+
+        public string BuildingOneName { get; set;} = "Farm";
+        public int BuildingOneOwned { get; set;} = 0;
+        public int BuildingOneCost { get; set;} = 100;
+        public int BuildingOneIncomeIncrease { get; set;} = 1;
+        public double BuildingOneCostIncrease { get; set;} = 1.2;
+        public string BuildingTwoName { get; set;} = "Barn";
+        public int BuildingTwoOwned { get; set;} = 0;
+        public int BuildingTwoCost { get; set;} = 1000;
+        public int BuildingTwoIncomeIncrease { get; set;} = 3;
+        public double BuildingTwoCostIncrease { get; set;} = 1.2;
     }
 
 }

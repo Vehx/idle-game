@@ -32,7 +32,10 @@ namespace Game.Services
             Player player = await _context.Players.FirstOrDefaultAsync(p => p.Id == id);
 
             TimeSpan timeSinceLastUpdate = DateTime.Now - player.LastUpdate;
-            player.Money = (int)(player.Money + player.Income * timeSinceLastUpdate.TotalSeconds);
+            // int moarMoney = (int)(player.Income * timeSinceLastUpdate.TotalSeconds);
+            var moarMoney = player.Money + player.Income * timeSinceLastUpdate.TotalSeconds;
+            // player.Money = player.Money + moarMoney;
+            player.MoneyDouble = player.Money + player.Income * timeSinceLastUpdate.TotalSeconds;
             player.LastUpdate = DateTime.Now;
 
             _context.Players.Update(player);
@@ -88,7 +91,7 @@ namespace Game.Services
                 }
                 }
                 if (updatedPlayer.BuildingId == 1) {
-                    if (player.Money >= player.BuildingOneCost) {
+                    if (player.Money >= player.BuildingTwoCost) {
 
                         // makes sure player doesn't get income from time spent with 0 income
                         if (player.Income == 0)
@@ -97,16 +100,16 @@ namespace Game.Services
                         // var Building = player.Buildings[updatedPlayer.BuildingId];
 
                         // deduct cost of building from money
-                        player.Money -= player.BuildingOneCost;
+                        player.Money -= player.BuildingTwoCost;
 
                         // calculate cost for next building
-                        player.BuildingOneCost = (int)(player.BuildingOneCost * player.BuildingOneCostIncrease);
+                        player.BuildingTwoCost = (int)(player.BuildingTwoCost * player.BuildingTwoCostIncrease);
 
                         // sets owned to +1 to reflect purchase
-                        player.BuildingOneOwned += 1;
+                        player.BuildingTwoOwned += 1;
 
                         // adds buildings income to players income to reflect purchase
-                        player.Income += player.BuildingOneIncomeIncrease;
+                        player.Income += player.BuildingTwoIncomeIncrease;
 
                         // finally sets player save it to database
                         _context.Players.Update(player);
