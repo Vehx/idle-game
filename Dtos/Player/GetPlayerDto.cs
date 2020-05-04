@@ -9,7 +9,7 @@ namespace Game.Dtos.Player
         public string Name { get; set;} = "Asha";
         public int Money { get; set;} = 100;
         public int Income { get; set;} = 0;
-        public List<Building> Buildings { get; set;} = new List<Building> { new Building() };
+        // public List<Building> Buildings { get; set;} = new List<Building> { new Building() };
     }
 
 }

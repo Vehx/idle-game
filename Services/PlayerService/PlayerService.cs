@@ -61,7 +61,7 @@ namespace Game.Services
                 Player player = await _context.Players.FirstOrDefaultAsync(p => p.Id == updatedPlayer.Id);
                 
                 // dirty fix, scary stuff ahead this is your one and only warning :)
-                if (updatedPlayer.BuildingId = 0) {
+                if (updatedPlayer.BuildingId == 0) {
                     if (player.Money >= player.BuildingOneCost) {
 
                     // makes sure player doesn't get income from time spent with 0 income
@@ -87,7 +87,7 @@ namespace Game.Services
                     await _context.SaveChangesAsync();
                 }
                 }
-                if (updatedPlayer.BuildingId = 1) {
+                if (updatedPlayer.BuildingId == 1) {
                     if (player.Money >= player.BuildingOneCost) {
 
                         // makes sure player doesn't get income from time spent with 0 income
