@@ -31,10 +31,12 @@ namespace Game.Services
 
             Player player = await _context.Players.FirstOrDefaultAsync(p => p.Id == id);
 
-            // TODO add logic to update money from current income by checking last updated field against current time
-
             TimeSpan timeSinceLastUpdate = DateTime.Now - player.LastUpdate;
-            player.Money = (int)(player.Income * timeSinceLastUpdate.TotalSeconds);
+            player.Money = (int)(player.Money + player.Income * timeSinceLastUpdate.TotalSeconds);
+            player.LastUpdate = DateTime.Now;
+
+            _context.Players.Update(player);
+            await _context.SaveChangesAsync();
 
             serviceResponse.Data = _mapper.Map<GetPlayerDto>(player);
             return serviceResponse;
