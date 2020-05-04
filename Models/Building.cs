@@ -11,7 +11,6 @@ namespace Game.Models
         public double CostIncrease { get; set;} = 1.2;
         public IdleUpgrades Upgrade { get; set;} = IdleUpgrades.DoubleIncome;
 
-        public Player playerId { get; set;}
     }
 
 }
