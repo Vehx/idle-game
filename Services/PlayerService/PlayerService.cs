@@ -33,9 +33,9 @@ namespace Game.Services
 
             TimeSpan timeSinceLastUpdate = DateTime.Now - player.LastUpdate;
             // int moarMoney = (int)(player.Income * timeSinceLastUpdate.TotalSeconds);
-            var moarMoney = player.Money + player.Income * timeSinceLastUpdate.TotalSeconds;
+            // var moarMoney = player.Money + player.Income * timeSinceLastUpdate.TotalSeconds;
             // player.Money = player.Money + moarMoney;
-            player.MoneyDouble = player.Money + player.Income * timeSinceLastUpdate.TotalSeconds;
+            player.MoneyDouble = player.MoneyDouble + player.Income * timeSinceLastUpdate.TotalSeconds;
             player.LastUpdate = DateTime.Now;
 
             _context.Players.Update(player);
@@ -65,7 +65,7 @@ namespace Game.Services
                 
                 // dirty fix, scary stuff ahead this is your one and only warning :)
                 if (updatedPlayer.BuildingId == 0) {
-                    if (player.Money >= player.BuildingOneCost) {
+                    if (player.MoneyDouble >= player.BuildingOneCost) {
 
                     // makes sure player doesn't get income from time spent with 0 income
                     if (player.Income == 0)
@@ -73,8 +73,8 @@ namespace Game.Services
 
                     // var Building = player.Buildings[updatedPlayer.BuildingId];
 
-                    // deduct cost of building from money
-                    player.Money -= player.BuildingOneCost;
+                    // deduct cost of building from moneyDouble
+                    player.MoneyDouble -= player.BuildingOneCost;
 
                     // calculate cost for next building
                     player.BuildingOneCost = (int)(player.BuildingOneCost * player.BuildingOneCostIncrease);
@@ -91,7 +91,7 @@ namespace Game.Services
                 }
                 }
                 if (updatedPlayer.BuildingId == 1) {
-                    if (player.Money >= player.BuildingTwoCost) {
+                    if (player.MoneyDouble >= player.BuildingTwoCost) {
 
                         // makes sure player doesn't get income from time spent with 0 income
                         if (player.Income == 0)
@@ -99,8 +99,8 @@ namespace Game.Services
 
                         // var Building = player.Buildings[updatedPlayer.BuildingId];
 
-                        // deduct cost of building from money
-                        player.Money -= player.BuildingTwoCost;
+                        // deduct cost of building from moneyDouble
+                        player.MoneyDouble -= player.BuildingTwoCost;
 
                         // calculate cost for next building
                         player.BuildingTwoCost = (int)(player.BuildingTwoCost * player.BuildingTwoCostIncrease);
